@@ -9,6 +9,8 @@ import meta from "./css/metamask-fox-logo 1.png";
 import hack from "./css/hack-logomark-436x436-purple-transparent-background 3.png";
 import etn from "./css/Group.png";
 import swap from "./css/Swap Button.png";
+import InputElemet from "./components/InputElement";
+import { Alert } from "@mui/material";
 
 const Contract = styled("div")`
   display: flex;
@@ -84,6 +86,18 @@ const Img = styled("img")`
 function App() {
   const [data, setData] = React.useState([]);
   const [change, setChange] = React.useState(true);
+  const [inputEtn, setInputEtn] = React.useState("");
+  const [inputHtk, setInputHtk] = React.useState("");
+  const [err, seErr] = React.useState(true);
+
+  const handleInput = () => {
+    if (inputEtn) {
+      setInputHtk(inputEtn);
+      setInputEtn(inputEtn);
+    } else {
+      seErr(false);
+    }
+  };
 
   const showContract = () => {
     let contract = "0x5F302b83F96692b033eeA7502cfA683672CbfFf0";
@@ -110,13 +124,7 @@ function App() {
       });
   };
 
-
   const show = typeof data !== "string";
-
-  // console.log(data);
-  // console.log(show);
-  // console.log(data[0]?.balance);
-
   return (
     <div className="App">
       <div className="header">
@@ -159,19 +167,48 @@ function App() {
             <SettingsOutlinedIcon sx={{ fontSize: 27.03 }} />
           </Header>
           {change ? (
-            <ListBalance
-              available="0.00" // get data from JSON(fech)
-              text="ETH"
-              icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
-              balance={data[0]?.balance} // get data from JSON(fech)
-            />
+            <>
+              {show && data[0]?.account ? (
+                <>
+                  <InputElemet
+                    onChange={(e) => setInputEtn(e.target.value)}
+                    value={inputEtn}
+                    text="ETH"
+                    icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
+                    balance={data[0]?.balance} // get data from JSON(fech)
+                  />
+                  {!err && (
+                    <Alert severity="error">Please enter numbers!</Alert>
+                  )}
+                </>
+              ) : (
+                <ListBalance
+                  available="0.00" // get data from JSON(fech)
+                  text="ETH"
+                  icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              )}
+            </>
           ) : (
-            <ListBalance
-              available="0.00"
-              text="HTK"
-              icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
-              balance={data[0]?.balance} // get data from JSON(fech)
-            />
+            <>
+              {show && data[0]?.account ? (
+                <InputElemet
+                  onChange={(e) => setInputHtk(e.target.value)}
+                  value={inputHtk}
+                  text="HTK"
+                  icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              ) : (
+                <ListBalance
+                  available="0.00"
+                  text="HTK"
+                  icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              )}
+            </>
           )}
           <ContainerRevert>
             <Revert>
@@ -182,22 +219,51 @@ function App() {
             </Revert>
           </ContainerRevert>
           {!change ? (
-            <ListBalance
-              available="0.00" // get data from JSON(fech)
-              text="ETH"
-              icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
-              balance={data[0]?.balance} // get data from JSON(fech)
-            />
+            <>
+              {show && data[0]?.account ? (
+                <InputElemet
+                  onChange={(e) => setInputEtn(e.target.value)}
+                  value={inputEtn}
+                  text="ETH"
+                  icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              ) : (
+                <ListBalance
+                  available="0.00" // get data from JSON(fech)
+                  text="ETH"
+                  icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              )}
+            </>
           ) : (
-            <ListBalance
-              available="0.00"
-              text="HTK"
-              icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
-              balance={data[0]?.balance} // get data from JSON(fech)
-            />
+            <>
+              {show && data[0]?.account ? (
+                <InputElemet
+                  onChange={(e) => setInputHtk(e.target.value)}
+                  value={inputHtk}
+                  text="HTK"
+                  icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              ) : (
+                <ListBalance
+                  available="0.00"
+                  text="HTK"
+                  icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
+                  balance={data[0]?.balance} // get data from JSON(fech)
+                />
+              )}
+            </>
           )}
 
           <button
+            onClick={() => {
+              handleInput();
+
+              // handleInputHtk();
+            }}
             id={show && data[0]?.account ? "buttonSubmite" : "buttonSubmiteDis"}
           >
             <TextSubmit>Submit</TextSubmit>
