@@ -10,7 +10,6 @@ import hack from "./css/hack-logomark-436x436-purple-transparent-background 3.pn
 import etn from "./css/Group.png";
 import swap from "./css/Swap Button.png";
 import InputElemet from "./components/InputElement";
-import { Alert } from "@mui/material";
 
 const Contract = styled("div")`
   display: flex;
@@ -87,17 +86,8 @@ function App() {
   const [data, setData] = React.useState([]);
   const [change, setChange] = React.useState(true);
   const [inputEtn, setInputEtn] = React.useState("");
-  const [inputHtk, setInputHtk] = React.useState("");
-  const [err, seErr] = React.useState(true);
 
-  const handleInput = () => {
-    if (inputEtn) {
-      setInputHtk(inputEtn);
-      setInputEtn(inputEtn);
-    } else {
-      seErr(false);
-    }
-  };
+
 
   const showContract = () => {
     let contract = "0x5F302b83F96692b033eeA7502cfA683672CbfFf0";
@@ -177,9 +167,7 @@ function App() {
                     icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
                     balance={data[0]?.balance} // get data from JSON(fech)
                   />
-                  {!err && (
-                    <Alert severity="error">Please enter numbers!</Alert>
-                  )}
+                
                 </>
               ) : (
                 <ListBalance
@@ -194,8 +182,8 @@ function App() {
             <>
               {show && data[0]?.account ? (
                 <InputElemet
-                  onChange={(e) => setInputHtk(e.target.value)}
-                  value={inputHtk}
+                  onChange={(e) => setInputEtn(e.target.value)}
+                  value={inputEtn}
                   text="HTK"
                   icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
                   balance={data[0]?.balance} // get data from JSON(fech)
@@ -241,8 +229,8 @@ function App() {
             <>
               {show && data[0]?.account ? (
                 <InputElemet
-                  onChange={(e) => setInputHtk(e.target.value)}
-                  value={inputHtk}
+                  onChange={(e) => setInputEtn(e.target.value)}
+                  value={inputEtn}
                   text="HTK"
                   icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
                   balance={data[0]?.balance} // get data from JSON(fech)
@@ -259,11 +247,7 @@ function App() {
           )}
 
           <button
-            onClick={() => {
-              handleInput();
-
-              // handleInputHtk();
-            }}
+         
             id={show && data[0]?.account ? "buttonSubmite" : "buttonSubmiteDis"}
           >
             <TextSubmit>Submit</TextSubmit>
