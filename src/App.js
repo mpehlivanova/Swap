@@ -4,11 +4,11 @@ import ButtonColor from "./components/ButtonColor";
 import styled from "@emotion/styled";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ListBalance from "./components/ListBalance";
-import logo from "./css/LOGO.png";
-import meta from "./css/metamask-fox-logo 1.png";
-import hack from "./css/hack-logomark-436x436-purple-transparent-background 3.png";
-import etn from "./css/Group.png";
-import swap from "./css/Swap Button.png";
+import logo from "./assets/LOGO.png";
+import meta from "./assets/metamask-fox-logo 1.png";
+import hack from "./assets/hack-logomark-436x436-purple-transparent-background 3.png";
+import etn from "./assets/Group.png";
+import swap from "./assets/Swap Button.png";
 import InputElemet from "./components/InputElement";
 
 const Contract = styled("div")`
@@ -85,17 +85,15 @@ const Img = styled("img")`
 function App() {
   const [data, setData] = React.useState([]);
   const [change, setChange] = React.useState(true);
-  const [inputEtn, setInputEtn] = React.useState("");
+  const [input, setInput] = React.useState("");
 
-
-
+ 
   const showContract = () => {
     let contract = "0x5F302b83F96692b033eeA7502cfA683672CbfFf0";
-    let apiKey = "5A2H3Y3EQUQZ99S89AVTB6TEHCC81E2XRZ";
-
+    let apiKey = "JWPRNPTIQACGEFUHJF4IZR2K27JPJXUTC3";
     fetch(
       "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address=" +
-        contract +
+        contract + "&apikey="+
         apiKey
     )
       .then((response) => response.json())
@@ -161,8 +159,8 @@ function App() {
               {show && data[0]?.account ? (
                 <>
                   <InputElemet
-                    onChange={(e) => setInputEtn(e.target.value)}
-                    value={inputEtn}
+                    onChange={(e) => setInput(e.target.value)}
+                    value={input}
                     text="ETH"
                     icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
                     balance={data[0]?.balance} // get data from JSON(fech)
@@ -182,8 +180,8 @@ function App() {
             <>
               {show && data[0]?.account ? (
                 <InputElemet
-                  onChange={(e) => setInputEtn(e.target.value)}
-                  value={inputEtn}
+                  onChange={(e) => setInput(e.target.value)}
+                  value={input}
                   text="HTK"
                   icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
                   balance={data[0]?.balance} // get data from JSON(fech)
@@ -210,8 +208,8 @@ function App() {
             <>
               {show && data[0]?.account ? (
                 <InputElemet
-                  onChange={(e) => setInputEtn(e.target.value)}
-                  value={inputEtn}
+                  onChange={(e) => setInput(e.target.value)}
+                  value={input}
                   text="ETH"
                   icon={<Img width="30px" src={etn} alt="vectorPhoto" />}
                   balance={data[0]?.balance} // get data from JSON(fech)
@@ -229,8 +227,8 @@ function App() {
             <>
               {show && data[0]?.account ? (
                 <InputElemet
-                  onChange={(e) => setInputEtn(e.target.value)}
-                  value={inputEtn}
+                  onChange={(e) => setInput(e.target.value)}
+                  value={input}
                   text="HTK"
                   icon={<Img width="35px" src={hack} alt="vectorPhoto" />}
                   balance={data[0]?.balance} // get data from JSON(fech)
